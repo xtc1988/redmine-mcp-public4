@@ -2,70 +2,97 @@
 
 Redmineの課題検索・全項目更新ツール
 
-## 概要
-RedmineのREST APIを利用し、課題の検索・全項目更新をコマンドラインから実行できます。
+---
 
-## セットアップ手順（他PCでもOK）
-1. Python 3.8以上をインストール
-2. このリポジトリをクローン
-3. `requirements.txt` で依存パッケージをインストール
-   ```
-   pip install -r requirements.txt
-   ```
-4. `config.sample.ini` を `config.ini` にコピーし、RedmineのURLとAPIキーを記入
-   ```
-   copy config.sample.ini config.ini  # Windows
-   # または
-   cp config.sample.ini config.ini    # Mac/Linux
-   ```
-5. `main.py` を実行
+## 【Windows＋VSCode＋GitHub Copilot（MCP/AIアシスタント）利用者向け】
 
-## 使い方
-
-### 課題検索
-```
-python main.py search project_id=1 status_id=*
-```
-
-### 課題更新
-```
-python main.py update <issue_id> <update_json_file>
-```
-
-例：
-```
-python main.py update 123 update.json
-```
-
-`update.json` にはRedmine API仕様に従った課題項目を記載してください。
+### 1. 必要なもの
+- Windows PC
+- [VSCode（Visual Studio Code）](https://code.visualstudio.com/)（最新版推奨）
+- [GitHubアカウント](https://github.com/)
+- [GitHub Copilot Chat（MCP/AIアシスタント）拡張機能](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat)
+- Python 3.8以上
+- Git（[公式ダウンロード](https://git-scm.com/)）
 
 ---
 
-## 設定ファイル例
+### 2. セットアップ手順
 
-`config.sample.ini` を参考に `config.ini` を作成してください。
+#### 2-1. VSCodeのインストール
+- [公式サイト](https://code.visualstudio.com/)からダウンロードし、インストール
 
-```
-[redmine]
-url = https://your-redmine-url/
-api_key = your_api_key_here
-```
+#### 2-2. Gitのインストール
+- [公式サイト](https://git-scm.com/)からダウンロードし、インストール
+- インストール後、コマンドプロンプトで `git --version` で動作確認
 
-## トラブルシュート
-- 認証エラー：APIキーやURLを再確認
-- SSLエラー：Redmineサーバーの証明書設定を確認
-- その他APIエラー：レスポンス内容を確認
+#### 2-3. Pythonのインストール
+- [公式サイト](https://www.python.org/downloads/)からダウンロードし、インストール
+- インストール後、コマンドプロンプトで `python --version` で動作確認
 
-## GitLabへのpush方法
-1. GitLabで新規リポジトリを作成
-2. このディレクトリで初回push
-   ```
-   git init
-   git remote add origin <GitLabのリポジトリURL>
-   git add .
-   git commit -m "first commit"
-   git push -u origin master
+#### 2-4. リポジトリのクローン
+1. VSCodeを起動
+2. 「表示」→「ターミナル」からターミナルを開く
+3. 下記コマンドを実行
+   ```sh
+   git clone https://github.com/xtc1988/redmine-mcp-public4.git
+   cd redmine-mcp-public4
    ```
 
-## 注意
-- `config.ini`は個人情報を含むため、Git管理対象外です（.gitignore済み）
+#### 2-5. Python仮想環境（推奨）
+```sh
+python -m venv venv
+venv\Scripts\activate
+```
+
+#### 2-6. 依存パッケージのインストール
+```sh
+pip install -r requirements.txt
+```
+
+#### 2-7. 設定ファイルの作成
+```sh
+copy config.sample.ini config.ini
+```
+- `config.ini`をエディタで開き、RedmineのURLとAPIキーを記入
+
+---
+
+### 3. GitHub Copilot Chat（MCP/AIアシスタント）の使い方
+
+1. VSCode左側の拡張機能から「GitHub Copilot Chat」をインストール
+2. サイドバーのCopilotアイコンをクリックし、チャット欄を開く
+3. 例：「main.pyを実行してRedmineの課題を検索したい」など自然言語で指示
+4. 実際にコマンドを打つ場合は、ターミナルで下記を実行
+
+#### 3-1. 課題検索
+```sh
+python main.py search project_id=1 status_id=*
+```
+
+#### 3-2. 課題更新
+```sh
+python main.py update <issue_id> <update_json_file>
+```
+例：
+```sh
+python main.py update 123 update.json
+```
+
+---
+
+### 4. よくあるトラブルと対策
+- `pip`や`python`コマンドが見つからない → パス設定や再インストールを確認
+- `config.ini`のAPIキーやURLが間違っている → 正しい値を再確認
+- RedmineサーバーのSSL証明書エラー → サーバー管理者に確認
+
+---
+
+### 5. 参考
+- [GitHub Copilot Chat公式ドキュメント](https://docs.github.com/ja/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-visual-studio-code)
+- [Redmine REST API公式ドキュメント](https://www.redmine.org/projects/redmine/wiki/Rest_api)
+
+---
+
+このREADMEの手順通りに進めれば、**VSCode＋GitHub Copilot Chat（MCP/AIアシスタント）環境でRedmine MCPを利用できます**。
+
+何か問題があれば、Copilot Chatに「エラー内容を教えて」などと質問してください。
