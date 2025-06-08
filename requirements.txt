@@ -1,2 +1,6 @@
-requests
-configparser
+fastapi
+uvicorn
+httpx
+python-dotenv
+pydantic
+pytest
